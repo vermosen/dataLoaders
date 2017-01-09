@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace dataLoaders
+namespace dataLoader
 {
     // a program to recover the data from 
     // https://rtdata.dtcc.com/gtr/dashboard.do

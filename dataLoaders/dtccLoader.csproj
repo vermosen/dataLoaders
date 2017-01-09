@@ -7,8 +7,8 @@
     <ProjectGuid>{BB9B67A6-F0F9-48D7-A99A-751913C2CCB9}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>dataLoaders</RootNamespace>
-    <AssemblyName>dataLoaders</AssemblyName>
+    <RootNamespace>dataLoader</RootNamespace>
+    <AssemblyName>dataLoader</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -52,11 +52,15 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="WotanLib">
+      <HintPath>..\..\Wotan\WotanLib\bin\Debug\WotanLib.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="asset_class.cs">
       <DependentUpon>dtccDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="configuration.cs" />
     <Compile Include="dtccDataModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -93,6 +97,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="configurations\DEV\configuration.xml" />
+    <Content Include="configurations\PROD\configuration.xml" />
     <Content Include="dtccDataModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>dtccDataModel.edmx</DependentUpon>

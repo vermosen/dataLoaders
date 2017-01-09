@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace dataLoaders
+namespace dataLoader
 {
     using System;
     using System.Data.Entity;

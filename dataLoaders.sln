@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dtccLoaders", "dataLoaders\dtccLoaders.csproj", "{BB9B67A6-F0F9-48D7-A99A-751913C2CCB9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dtccLoader", "dataLoaders\dtccLoader.csproj", "{BB9B67A6-F0F9-48D7-A99A-751913C2CCB9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

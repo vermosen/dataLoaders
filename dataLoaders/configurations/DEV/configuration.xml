@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration xmlns="http://schemas.datacontract.org/2004/07/Wotan" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+  <logger i:type="consoleLoggerContract">
+    <threshold>low</threshold>
+  </logger>
+  <database></database>
+</configuration>
