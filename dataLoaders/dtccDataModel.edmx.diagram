@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="449b897cf9c841c6af4093bab7314eb5" Name="Diagram1">
+        <EntityTypeShape EntityType="dataRepositoryModel.asset_class" Width="1.75" PointX="0.5" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="dataRepositoryModel.dtcc_transactions" Width="4.125" PointX="3" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="dataRepositoryModel.indication_of_collateralization" Width="1.75" PointX="0.5" PointY="2.625" IsExpanded="true" />
+        <AssociationConnector Association="dataRepositoryModel.FK_dtcc_transactions_asset_class" ManuallyRouted="false" />
+        <AssociationConnector Association="dataRepositoryModel.FK_dtcc_transactions_indication_of_collateralization" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

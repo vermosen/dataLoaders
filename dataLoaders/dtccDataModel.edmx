@@ -1,0 +1,324 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="dataRepositoryModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="asset_class">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="tinyint" Nullable="false" />
+          <Property Name="type" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="dtcc_transactions">
+          <Key>
+            <PropertyRef Name="DISSEMINATION_ID" />
+          </Key>
+          <Property Name="DISSEMINATION_ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ORIGINAL_DISSEMINATION_ID" Type="bigint" />
+          <Property Name="ACTION" Type="tinyint" Nullable="false" />
+          <Property Name="EXECUTION_TIMESTAMP" Type="datetime2" Precision="0" Nullable="false" />
+          <Property Name="CLEARED" Type="bit" Nullable="false" />
+          <Property Name="INDICATION_OF_COLLATERALIZATION" Type="tinyint" />
+          <Property Name="INDICATION_OF_END_USER_EXCEPTION" Type="bit" />
+          <Property Name="INDICATION_OF_OTHER_PRICE_AFFECTING_TERM" Type="bit" Nullable="false" />
+          <Property Name="BLOCK_TRADES_AND_LARGE_NOTIONAL_OFFFACILITY_SWAPS" Type="bit" Nullable="false" />
+          <Property Name="EXECUTION_VENUE" Type="bit" />
+          <Property Name="EFFECTIVE_DATE" Type="date" />
+          <Property Name="END_DATE" Type="date" />
+          <Property Name="DAY_COUNT_CONVENTION" Type="varchar" MaxLength="50" />
+          <Property Name="SETTLEMENT_CURRENCY" Type="nchar" MaxLength="3" />
+          <Property Name="ASSET_CLASS" Type="tinyint" Nullable="false" />
+          <Property Name="SUBASSET_CLASS_FOR_OTHER_COMMODITY" Type="varchar" MaxLength="50" />
+          <Property Name="TAXONOMY" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="PRICE_FORMING_CONTINUATION_DATA" Type="varchar" MaxLength="50" />
+          <Property Name="UNDERLYING_ASSET_1" Type="varchar" MaxLength="100" />
+          <Property Name="PRICE_NOTATION_TYPE" Type="varchar" MaxLength="50" />
+          <Property Name="PRICE_NOTATION" Type="numeric" Precision="28" Scale="10" />
+          <Property Name="ADDITIONAL_PRICE_NOTATION_TYPE" Type="varchar" MaxLength="50" />
+          <Property Name="ADDITIONAL_PRICE_NOTATION" Type="numeric" Precision="28" Scale="10" />
+          <Property Name="NOTIONAL_CURRENCY_1" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="NOTIONAL_CURRENCY_2" Type="varchar" MaxLength="50" />
+          <Property Name="ROUNDED_NOTIONAL_AMOUNT_1" Type="numeric" Precision="28" Scale="10" />
+          <Property Name="ROUNDED_NOTIONAL_AMOUNT_1_PLUS" Type="bit" />
+          <Property Name="ROUNDED_NOTIONAL_AMOUNT_2" Type="numeric" Precision="28" Scale="10" />
+          <Property Name="ROUNDED_NOTIONAL_AMOUNT_2_PLUS" Type="bit" />
+          <Property Name="PAYMENT_FREQUENCY_1" Type="varchar" MaxLength="50" />
+          <Property Name="PAYMENT_FREQUENCY_2" Type="varchar" MaxLength="50" />
+          <Property Name="RESET_FREQUENCY_1" Type="varchar" MaxLength="50" />
+          <Property Name="RESET_FREQUENCY_2" Type="varchar" MaxLength="50" />
+          <Property Name="EMBEDED_OPTION" Type="varchar" MaxLength="50" />
+          <Property Name="OPTION_STRIKE_PRICE" Type="numeric" Precision="28" Scale="10" />
+          <Property Name="OPTION_TYPE" Type="varchar" MaxLength="10" />
+          <Property Name="OPTION_FAMILY" Type="varchar" MaxLength="10" />
+          <Property Name="OPTION_CURRENCY" Type="char" MaxLength="3" />
+          <Property Name="OPTION_PREMIUM" Type="numeric" Precision="28" Scale="10" />
+          <Property Name="OPTION_LOCK_PERIOD" Type="date" />
+          <Property Name="OPTION_EXPIRATION_DATE" Type="date" />
+          <Property Name="PRICE_NOTATION2_TYPE" Type="varchar" MaxLength="50" />
+          <Property Name="PRICE_NOTATION2" Type="numeric" Precision="28" Scale="10" />
+          <Property Name="PRICE_NOTATION3_TYPE" Type="varchar" MaxLength="50" />
+          <Property Name="PRICE_NOTATION3" Type="numeric" Precision="28" Scale="10" />
+          <Property Name="FILE_DATE" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="indication_of_collateralization">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="tinyint" Nullable="false" />
+          <Property Name="collateratization_key" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_dtcc_transactions_asset_class">
+          <End Role="asset_class" Type="Self.asset_class" Multiplicity="1" />
+          <End Role="dtcc_transactions" Type="Self.dtcc_transactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="asset_class">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="dtcc_transactions">
+              <PropertyRef Name="ASSET_CLASS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dtcc_transactions_indication_of_collateralization">
+          <End Role="indication_of_collateralization" Type="Self.indication_of_collateralization" Multiplicity="0..1" />
+          <End Role="dtcc_transactions" Type="Self.dtcc_transactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="indication_of_collateralization">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="dtcc_transactions">
+              <PropertyRef Name="INDICATION_OF_COLLATERALIZATION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dataRepositoryModelStoreContainer">
+          <EntitySet Name="asset_class" EntityType="Self.asset_class" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="dtcc_transactions" EntityType="Self.dtcc_transactions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="indication_of_collateralization" EntityType="Self.indication_of_collateralization" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_dtcc_transactions_asset_class" Association="Self.FK_dtcc_transactions_asset_class">
+            <End Role="asset_class" EntitySet="asset_class" />
+            <End Role="dtcc_transactions" EntitySet="dtcc_transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dtcc_transactions_indication_of_collateralization" Association="Self.FK_dtcc_transactions_indication_of_collateralization">
+            <End Role="indication_of_collateralization" EntitySet="indication_of_collateralization" />
+            <End Role="dtcc_transactions" EntitySet="dtcc_transactions" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="dataRepositoryModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="asset_class">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Byte" Nullable="false" />
+          <Property Name="type" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="dtcc_transactions" Relationship="Self.FK_dtcc_transactions_asset_class" FromRole="asset_class" ToRole="dtcc_transactions" />
+        </EntityType>
+        <EntityType Name="dtcc_transactions">
+          <Key>
+            <PropertyRef Name="DISSEMINATION_ID" />
+          </Key>
+          <Property Name="DISSEMINATION_ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ORIGINAL_DISSEMINATION_ID" Type="Int64" />
+          <Property Name="ACTION" Type="Byte" Nullable="false" />
+          <Property Name="EXECUTION_TIMESTAMP" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CLEARED" Type="Boolean" Nullable="false" />
+          <Property Name="INDICATION_OF_COLLATERALIZATION" Type="Byte" />
+          <Property Name="INDICATION_OF_END_USER_EXCEPTION" Type="Boolean" />
+          <Property Name="INDICATION_OF_OTHER_PRICE_AFFECTING_TERM" Type="Boolean" Nullable="false" />
+          <Property Name="BLOCK_TRADES_AND_LARGE_NOTIONAL_OFFFACILITY_SWAPS" Type="Boolean" Nullable="false" />
+          <Property Name="EXECUTION_VENUE" Type="Boolean" />
+          <Property Name="EFFECTIVE_DATE" Type="DateTime" Precision="0" />
+          <Property Name="END_DATE" Type="DateTime" Precision="0" />
+          <Property Name="DAY_COUNT_CONVENTION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SETTLEMENT_CURRENCY" Type="String" MaxLength="3" FixedLength="true" Unicode="true" />
+          <Property Name="ASSET_CLASS" Type="Byte" Nullable="false" />
+          <Property Name="SUBASSET_CLASS_FOR_OTHER_COMMODITY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TAXONOMY" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PRICE_FORMING_CONTINUATION_DATA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UNDERLYING_ASSET_1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PRICE_NOTATION_TYPE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PRICE_NOTATION" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="ADDITIONAL_PRICE_NOTATION_TYPE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ADDITIONAL_PRICE_NOTATION" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="NOTIONAL_CURRENCY_1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NOTIONAL_CURRENCY_2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ROUNDED_NOTIONAL_AMOUNT_1" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="ROUNDED_NOTIONAL_AMOUNT_1_PLUS" Type="Boolean" />
+          <Property Name="ROUNDED_NOTIONAL_AMOUNT_2" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="ROUNDED_NOTIONAL_AMOUNT_2_PLUS" Type="Boolean" />
+          <Property Name="PAYMENT_FREQUENCY_1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PAYMENT_FREQUENCY_2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RESET_FREQUENCY_1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RESET_FREQUENCY_2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EMBEDED_OPTION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OPTION_STRIKE_PRICE" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="OPTION_TYPE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="OPTION_FAMILY" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="OPTION_CURRENCY" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Name="OPTION_PREMIUM" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="OPTION_LOCK_PERIOD" Type="DateTime" Precision="0" />
+          <Property Name="OPTION_EXPIRATION_DATE" Type="DateTime" Precision="0" />
+          <Property Name="PRICE_NOTATION2_TYPE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PRICE_NOTATION2" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="PRICE_NOTATION3_TYPE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PRICE_NOTATION3" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="FILE_DATE" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="asset_class1" Relationship="Self.FK_dtcc_transactions_asset_class" FromRole="dtcc_transactions" ToRole="asset_class" />
+          <NavigationProperty Name="indication_of_collateralization1" Relationship="Self.FK_dtcc_transactions_indication_of_collateralization" FromRole="dtcc_transactions" ToRole="indication_of_collateralization" />
+        </EntityType>
+        <EntityType Name="indication_of_collateralization">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Byte" Nullable="false" />
+          <Property Name="collateratization_key" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="dtcc_transactions" Relationship="Self.FK_dtcc_transactions_indication_of_collateralization" FromRole="indication_of_collateralization" ToRole="dtcc_transactions" />
+        </EntityType>
+        <Association Name="FK_dtcc_transactions_asset_class">
+          <End Role="asset_class" Type="Self.asset_class" Multiplicity="1" />
+          <End Role="dtcc_transactions" Type="Self.dtcc_transactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="asset_class">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="dtcc_transactions">
+              <PropertyRef Name="ASSET_CLASS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dtcc_transactions_indication_of_collateralization">
+          <End Role="indication_of_collateralization" Type="Self.indication_of_collateralization" Multiplicity="0..1" />
+          <End Role="dtcc_transactions" Type="Self.dtcc_transactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="indication_of_collateralization">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="dtcc_transactions">
+              <PropertyRef Name="INDICATION_OF_COLLATERALIZATION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dataRepositoryEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="asset_class" EntityType="Self.asset_class" />
+          <EntitySet Name="dtcc_transactions" EntityType="Self.dtcc_transactions" />
+          <EntitySet Name="indication_of_collateralization" EntityType="Self.indication_of_collateralization" />
+          <AssociationSet Name="FK_dtcc_transactions_asset_class" Association="Self.FK_dtcc_transactions_asset_class">
+            <End Role="asset_class" EntitySet="asset_class" />
+            <End Role="dtcc_transactions" EntitySet="dtcc_transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dtcc_transactions_indication_of_collateralization" Association="Self.FK_dtcc_transactions_indication_of_collateralization">
+            <End Role="indication_of_collateralization" EntitySet="indication_of_collateralization" />
+            <End Role="dtcc_transactions" EntitySet="dtcc_transactions" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="dataRepositoryModelStoreContainer" CdmEntityContainer="dataRepositoryEntities">
+          <EntitySetMapping Name="asset_class">
+            <EntityTypeMapping TypeName="dataRepositoryModel.asset_class">
+              <MappingFragment StoreEntitySet="asset_class">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="description" ColumnName="description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dtcc_transactions">
+            <EntityTypeMapping TypeName="dataRepositoryModel.dtcc_transactions">
+              <MappingFragment StoreEntitySet="dtcc_transactions">
+                <ScalarProperty Name="DISSEMINATION_ID" ColumnName="DISSEMINATION_ID" />
+                <ScalarProperty Name="ORIGINAL_DISSEMINATION_ID" ColumnName="ORIGINAL_DISSEMINATION_ID" />
+                <ScalarProperty Name="ACTION" ColumnName="ACTION" />
+                <ScalarProperty Name="EXECUTION_TIMESTAMP" ColumnName="EXECUTION_TIMESTAMP" />
+                <ScalarProperty Name="CLEARED" ColumnName="CLEARED" />
+                <ScalarProperty Name="INDICATION_OF_COLLATERALIZATION" ColumnName="INDICATION_OF_COLLATERALIZATION" />
+                <ScalarProperty Name="INDICATION_OF_END_USER_EXCEPTION" ColumnName="INDICATION_OF_END_USER_EXCEPTION" />
+                <ScalarProperty Name="INDICATION_OF_OTHER_PRICE_AFFECTING_TERM" ColumnName="INDICATION_OF_OTHER_PRICE_AFFECTING_TERM" />
+                <ScalarProperty Name="BLOCK_TRADES_AND_LARGE_NOTIONAL_OFFFACILITY_SWAPS" ColumnName="BLOCK_TRADES_AND_LARGE_NOTIONAL_OFFFACILITY_SWAPS" />
+                <ScalarProperty Name="EXECUTION_VENUE" ColumnName="EXECUTION_VENUE" />
+                <ScalarProperty Name="EFFECTIVE_DATE" ColumnName="EFFECTIVE_DATE" />
+                <ScalarProperty Name="END_DATE" ColumnName="END_DATE" />
+                <ScalarProperty Name="DAY_COUNT_CONVENTION" ColumnName="DAY_COUNT_CONVENTION" />
+                <ScalarProperty Name="SETTLEMENT_CURRENCY" ColumnName="SETTLEMENT_CURRENCY" />
+                <ScalarProperty Name="ASSET_CLASS" ColumnName="ASSET_CLASS" />
+                <ScalarProperty Name="SUBASSET_CLASS_FOR_OTHER_COMMODITY" ColumnName="SUBASSET_CLASS_FOR_OTHER_COMMODITY" />
+                <ScalarProperty Name="TAXONOMY" ColumnName="TAXONOMY" />
+                <ScalarProperty Name="PRICE_FORMING_CONTINUATION_DATA" ColumnName="PRICE_FORMING_CONTINUATION_DATA" />
+                <ScalarProperty Name="UNDERLYING_ASSET_1" ColumnName="UNDERLYING_ASSET_1" />
+                <ScalarProperty Name="PRICE_NOTATION_TYPE" ColumnName="PRICE_NOTATION_TYPE" />
+                <ScalarProperty Name="PRICE_NOTATION" ColumnName="PRICE_NOTATION" />
+                <ScalarProperty Name="ADDITIONAL_PRICE_NOTATION_TYPE" ColumnName="ADDITIONAL_PRICE_NOTATION_TYPE" />
+                <ScalarProperty Name="ADDITIONAL_PRICE_NOTATION" ColumnName="ADDITIONAL_PRICE_NOTATION" />
+                <ScalarProperty Name="NOTIONAL_CURRENCY_1" ColumnName="NOTIONAL_CURRENCY_1" />
+                <ScalarProperty Name="NOTIONAL_CURRENCY_2" ColumnName="NOTIONAL_CURRENCY_2" />
+                <ScalarProperty Name="ROUNDED_NOTIONAL_AMOUNT_1" ColumnName="ROUNDED_NOTIONAL_AMOUNT_1" />
+                <ScalarProperty Name="ROUNDED_NOTIONAL_AMOUNT_1_PLUS" ColumnName="ROUNDED_NOTIONAL_AMOUNT_1_PLUS" />
+                <ScalarProperty Name="ROUNDED_NOTIONAL_AMOUNT_2" ColumnName="ROUNDED_NOTIONAL_AMOUNT_2" />
+                <ScalarProperty Name="ROUNDED_NOTIONAL_AMOUNT_2_PLUS" ColumnName="ROUNDED_NOTIONAL_AMOUNT_2_PLUS" />
+                <ScalarProperty Name="PAYMENT_FREQUENCY_1" ColumnName="PAYMENT_FREQUENCY_1" />
+                <ScalarProperty Name="PAYMENT_FREQUENCY_2" ColumnName="PAYMENT_FREQUENCY_2" />
+                <ScalarProperty Name="RESET_FREQUENCY_1" ColumnName="RESET_FREQUENCY_1" />
+                <ScalarProperty Name="RESET_FREQUENCY_2" ColumnName="RESET_FREQUENCY_2" />
+                <ScalarProperty Name="EMBEDED_OPTION" ColumnName="EMBEDED_OPTION" />
+                <ScalarProperty Name="OPTION_STRIKE_PRICE" ColumnName="OPTION_STRIKE_PRICE" />
+                <ScalarProperty Name="OPTION_TYPE" ColumnName="OPTION_TYPE" />
+                <ScalarProperty Name="OPTION_FAMILY" ColumnName="OPTION_FAMILY" />
+                <ScalarProperty Name="OPTION_CURRENCY" ColumnName="OPTION_CURRENCY" />
+                <ScalarProperty Name="OPTION_PREMIUM" ColumnName="OPTION_PREMIUM" />
+                <ScalarProperty Name="OPTION_LOCK_PERIOD" ColumnName="OPTION_LOCK_PERIOD" />
+                <ScalarProperty Name="OPTION_EXPIRATION_DATE" ColumnName="OPTION_EXPIRATION_DATE" />
+                <ScalarProperty Name="PRICE_NOTATION2_TYPE" ColumnName="PRICE_NOTATION2_TYPE" />
+                <ScalarProperty Name="PRICE_NOTATION2" ColumnName="PRICE_NOTATION2" />
+                <ScalarProperty Name="PRICE_NOTATION3_TYPE" ColumnName="PRICE_NOTATION3_TYPE" />
+                <ScalarProperty Name="PRICE_NOTATION3" ColumnName="PRICE_NOTATION3" />
+                <ScalarProperty Name="FILE_DATE" ColumnName="FILE_DATE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="indication_of_collateralization">
+            <EntityTypeMapping TypeName="dataRepositoryModel.indication_of_collateralization">
+              <MappingFragment StoreEntitySet="indication_of_collateralization">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="collateratization_key" ColumnName="collateratization_key" />
+                <ScalarProperty Name="description" ColumnName="description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -6,10 +6,13 @@ using System.Threading.Tasks;
 
 namespace dataLoaders
 {
+    // a program to recover the data from 
+    // https://rtdata.dtcc.com/gtr/dashboard.do
     class Program
     {
         static void Main(string[] args)
         {
+
         }
     }
 }
